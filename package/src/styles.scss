@@ -7,3 +7,17 @@ body {
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.error {
+  color: red;
+}

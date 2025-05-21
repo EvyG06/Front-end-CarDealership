@@ -6,4 +6,5 @@ export const AuthenticationRoutes: Routes = [
   { path: '', redirectTo: 'side-login', pathMatch: 'full' },
   { path: 'side-login', component: SideLoginComponent },
   { path: 'side-register', component: SideRegisterComponent }
+
 ];

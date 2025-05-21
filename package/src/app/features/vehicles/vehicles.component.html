@@ -1,0 +1,33 @@
+<h2>Vehículos</h2>
+<div>
+  <h3>Agregar Vehículo</h3>
+  <input [(ngModel)]="newVehicle.brand" placeholder="Marca">
+  <input [(ngModel)]="newVehicle.model" placeholder="Modelo">
+  <input type="number" [(ngModel)]="newVehicle.year" placeholder="Año">
+  <input type="number" [(ngModel)]="newVehicle.characteristics" placeholder="Características">
+    <input type="number" [(ngModel)]="newVehicle.status" placeholder="Estado">
+  <button (click)="addVehicle()">Agregar</button>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Año</th>
+      <th>Características</th>
+      <th>Estado</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let vehicle of vehicles">
+      <td>{{ vehicle.brand }}</td>
+      <td>{{ vehicle.model }}</td>
+      <td>{{ vehicle.year }}</td>
+      <td>{{ vehicle.characteristics }}</td>
+      <td>{{ vehicle.status }}</td>
+      
+      <td><button (click)="deleteVehicle(vehicle.id)">Eliminar</button></td>
+    </tr>
+  </tbody>
+</table>

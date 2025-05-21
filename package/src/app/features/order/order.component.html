@@ -1,0 +1,57 @@
+<div class="orders-container">
+  <h2>Pedidos</h2>
+  <div>
+    <h3>Agregar Pedido</h3>
+    <mat-form-field appearance="outline">
+      <mat-label>Cliente</mat-label>
+      <mat-select [(ngModel)]="newOrder.customerId">
+        <mat-option *ngFor="let customer of customers" [value]="customer.id">{{ customer.nombre }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Vehículo</mat-label>
+      <mat-select [(ngModel)]="newOrder.vehicleId">
+        <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{ vehicle.brand }} {{ vehicle.model }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha</mat-label>
+      <input matInput type="date" [(ngModel)]="newOrder.date">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Estado del Pedido</mat-label>
+      <input matInput [(ngModel)]="newOrder.orderStatus" placeholder="Estado del Pedido">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Notas del Pedido</mat-label>
+      <input matInput [(ngModel)]="newOrder.orderNotes" placeholder="Notas del Pedido">
+    </mat-form-field>
+    <button mat-flat-button color="primary" (click)="addOrder()">Agregar</button>
+  </div>
+  <mat-table [dataSource]="orders">
+    <ng-container matColumnDef="customerName">
+      <mat-header-cell *matHeaderCellDef>Cliente</mat-header-cell>
+      <mat-cell *matCellDef="let order">{{ order.customerName }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="vehicleModel">
+      <mat-header-cell *matHeaderCellDef>Vehículo</mat-header-cell>
+      <mat-cell *matCellDef="let order">{{ order.vehicleModel }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef>Fecha</mat-header-cell>
+      <mat-cell *matCellDef="let order">{{ order.date | date: 'mediumDate' }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="orderStatus">
+      <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+      <mat-cell *matCellDef="let order">{{ order.orderStatus }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+      <mat-cell *matCellDef="let order">
+        <button mat-flat-button color="warn" (click)="deleteOrder(order.id)">Eliminar</button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

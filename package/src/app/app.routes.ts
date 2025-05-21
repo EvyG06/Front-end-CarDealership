@@ -1,57 +1,21 @@
 import { Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
-import { SideRegisterComponent } from './pages/authentication/side-register/side-register.component';
+import { Route } from '@angular/router';
 import { SideLoginComponent } from './pages/authentication/side-login/side-login.component';
-import { VehicleListComponent } from './features/vehicles/vehicle-list/vehicle-list.component';
-import { OrderListComponent } from './features/orders/order-list/order-list.component';
-import { SaleListComponent } from './features/sales/sale-list/sale-list.component';
-import { StarterComponent } from './pages/starter/starter.component';
+import { SideRegisterComponent } from './pages/authentication/side-register/side-register.component';
 import { AuthGuard } from './guards/auth.guard';
-
+import { CustomersComponent } from './features/customer/customer.component';
+import { VehiclesComponent } from './features/vehicles/vehicles.component';
+import { OrdersComponent } from './features/order/order.component';
+import { SaleComponent } from './features/sale/sale.component';
 
 export const routes: Routes = [
-  { 
-    path: '', 
-    redirectTo: 'auth/login', 
-    pathMatch: 'full' 
-  },
-  {
-    path: 'auth',
-    children: [
-      { path: 'login', component: SideLoginComponent },
-      { path: 'register', component: SideRegisterComponent }
-    ]
-  },
-  {
-    path: '',
-    component: BlankComponent,
-    children: [
-      {
-        path: 'dashboard',
-        loadChildren: () =>
-          import('./pages/pages.routes').then((m) => m.PagesRoutes),
-      },
-      {
-        path: 'ui-components',
-        loadChildren: () =>
-          import('./pages/ui-components/ui-components.routes').then(
-            (m) => m.UiComponentsRoutes
-          ),
-      },
-      {
-        path: 'authentication',
-        loadChildren: () =>
-          import('./pages/authentication/authentication.routes').then(
-            (m) => m.AuthenticationRoutes
-          ),
-      },
-
-      { path: 'starter', component: StarterComponent, canActivate: [AuthGuard] },
-
-      { path: 'vehicles', component: VehicleListComponent, canActivate: [AuthGuard] },
-      { path: 'orders', component: OrderListComponent, canActivate: [AuthGuard] },
-      { path: 'sales', component: SaleListComponent, canActivate: [AuthGuard] },
-    ],
-  },
-
+  { path: '', redirectTo: '/authentication/side-login', pathMatch: 'full' },
+  { path: 'authentication/side-login', component: SideLoginComponent },
+  { path: 'authentication/side-register', component: SideRegisterComponent },
+  { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard] },
+  { path: 'vehicles', component: VehiclesComponent, canActivate: [AuthGuard] },
+  { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
+  { path: 'sales', component: SaleComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '/authentication/side-login' } 
 ];

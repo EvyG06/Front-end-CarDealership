@@ -1,55 +1,45 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { User } from '../models/users.model';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/auth'; 
-  private currentUserSubject = new BehaviorSubject<User | null>(this.getUserFromStorage());
+  private apiUrl = 'http://localhost:3000/auth';
+  private isAuthenticated = false;
+  private token: string | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.token = localStorage.getItem('token');
+    this.isAuthenticated = !!this.token; 
+  }
 
-  // Login
-  login(email: string, password: string): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/login`, { email, password }).pipe(
-      tap(user => {
-        localStorage.setItem('user', JSON.stringify(user));
-        this.currentUserSubject.next(user);
+  login(credentials: { email: string; password: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+      tap((response: any) => {
+        this.isAuthenticated = true;
+        this.token = response.token;
+        localStorage.setItem('token', this.token ?? '');
       })
     );
   }
-
-  // Registro
-  register(userData: Partial<User>): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/register`, userData);
+  register(user: { name: string; email: string; password: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, user);
   }
 
-  // Obtener usuario actual
-  get currentUser(): Observable<User | null> {
-    return this.currentUserSubject.asObservable();
-  }
-
-  getUserFromStorage(): User | null {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
-  }
-
-  // Cerrar sesión
-  logout(): void {
-    localStorage.removeItem('user');
-    this.currentUserSubject.next(null);
-  }
-
-  // Obtener token
-  getToken(): string | null {
-    const user = this.getUserFromStorage();
-    return user?.token || null;
+  logout() {
+    this.isAuthenticated = false;
+    this.token = null;
+    localStorage.removeItem('token');
   }
 
   isLoggedIn(): boolean {
-    return !!this.getToken();
+    return this.isAuthenticated;
+  }
+
+  getToken(): string | null {
+    return this.token;
   }
 }

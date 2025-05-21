@@ -2,8 +2,6 @@ export interface Orders {
 
   id?: number;
 
-  supplierId: number;
-
   vehicleId: number;
 
   Cantidad: number;

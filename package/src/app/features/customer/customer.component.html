@@ -1,0 +1,67 @@
+<div class="customers-container">
+  <h2>Clientes</h2>
+  <div>
+    <h3>Agregar Cliente</h3>
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput [(ngModel)]="newCustomer.nombre" placeholder="Nombre">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Correo</mat-label>
+      <input matInput type="email" [(ngModel)]="newCustomer.correo" placeholder="Correo">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Dirección</mat-label>
+      <input matInput [(ngModel)]="newCustomer.direccion" placeholder="Dirección">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Teléfono</mat-label>
+      <input matInput type="tel" [(ngModel)]="newCustomer.telefono" placeholder="Teléfono">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Preferencias</mat-label>
+      <input matInput [(ngModel)]="newCustomer.Preferencias" placeholder="Preferencias">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Seguimiento</mat-label>
+      <input matInput [(ngModel)]="newCustomer.Seguimiento" placeholder="Seguimiento">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Último Seguimiento</mat-label>
+      <input matInput type="date" [(ngModel)]="newCustomer.UltimoSeguimiento">
+    </mat-form-field>
+    <button mat-flat-button color="primary" (click)="addCustomer()">Agregar</button>
+  </div>
+  <mat-table [dataSource]="customers">
+    <ng-container matColumnDef="nombre">
+      <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+      <mat-cell *matCellDef="let customer">{{ customer.nombre }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="correo">
+      <mat-header-cell *matHeaderCellDef>Correo</mat-header-cell>
+      <mat-cell *matCellDef="let customer">{{ customer.correo }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="direccion">
+      <mat-header-cell *matHeaderCellDef>Dirección</mat-header-cell>
+      <mat-cell *matCellDef="let customer">{{ customer.direccion }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="telefono">
+      <mat-header-cell *matHeaderCellDef>Teléfono</mat-header-cell>
+      <mat-cell *matCellDef="let customer">{{ customer.telefono }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Preferencias">
+      <mat-header-cell *matHeaderCellDef>Preferencias</mat-header-cell>
+      <mat-cell *matCellDef="let customer">{{ customer.Preferencias }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Seguimiento">
+      <mat-header-cell *matHeaderCellDef>Seguimiento</mat-header-cell>
+      <mat-cell *matCellDef="let customer">{{ customer.Seguimiento }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="UltimoSeguimiento">
+      <mat-header-cell *matHeaderCellDef>Último Seguimiento</mat-header-cell>
+      <mat-cell *matCellDef="let customer">{{ customer.UltimoSeguimiento | date: 'mediumDate' }}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

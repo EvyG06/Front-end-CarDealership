@@ -1,42 +1,30 @@
-<div class="blank-layout-container justify-content-center align-items-center bg-light">
-  <div class="position-relative row w-100 h-100 bg-gredient justify-content-center">
-    <div class="col-lg-4 d-flex align-items-center">
-      <mat-card class="cardWithShadow boxed-auth">
-        <mat-card-content class="p-32">
-          <div class="text-center">
-            <a [routerLink]="['/dashboard']">
-              <img src="./assets/images/logos/dark-logo.svg" class="align-middle m-2" alt="logo" />
-            </a>
-          </div>
+<!-- src/app/pages/authentication/side-register/side-register.component.html -->
+<div class="register-container">
+  <h2>Registrarse</h2>
+  <p>¡Bienvenido! Completa el siguiente formulario para crear una cuenta.</p>
 
-          <form class="m-t-30">
-            <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Nombre</mat-label>
-            <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput />
-            </mat-form-field>
-            <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Email </mat-label>
-            <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput type="email" />
-            </mat-form-field>
-            <!-- password -->
-            <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Contraseña</mat-label>
-            <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput type="password" />
-            </mat-form-field>
+  <form (ngSubmit)="register()" #registerForm="ngForm">
 
-            <a [routerLink]="['/']" mat-flat-button color="primary" class="w-100">
-              Sign Up
-            </a>
-            <!-- input -->
-          </form>
-          <span class="d-block f-w-500 text-center m-t-24">Ya tienes una cuenta? 
+    <mat-form-field appearance="outline" class="w-100" color="primary">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" id="name" name="name" [(ngModel)]="user.name" required>
+    </mat-form-field>
 
-            <a [routerLink]="['/authentication/login']" class="text-decoration-none text-primary f-w-500 f-s-14">
-              Iniciar Sesión
-</a>
-          </span>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
+    <mat-form-field appearance="outline" class="w-100" color="primary">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" id="email" name="email" [(ngModel)]="user.email" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100" color="primary">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" id="password" name="password" [(ngModel)]="user.password" required>
+    </mat-form-field>
+
+    <a [routerLink]="['/authentication/side-login']" mat-flat-button color="primary" class="w-100" (click)="register()">Registrarse</a>
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  </form>
+
+  <p>¿Ya tienes cuenta? 
+    <a [routerLink]="['/authentication/side-login']" class="text-decoration-none text-primary f-w-500 f-s-14">Inicia Sesión</a>
+  </p>
 </div>

@@ -1,0 +1,27 @@
+$primary-color: #502c2c;
+$secondary-color: #ac2a2a;
+
+body {
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+h2 {
+  color: $primary-color;
+}
+button {
+  background-color: $secondary-color;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}

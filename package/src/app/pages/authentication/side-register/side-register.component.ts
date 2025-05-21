@@ -1,37 +1,34 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../auth/auth.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from 'src/app/material.module';
-import { User } from 'src/app/models/users.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-register',
-  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule],
   templateUrl: './side-register.component.html',
+  standalone: true, 
+  imports: [CommonModule, FormsModule, RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule] 
 })
-
 export class SideRegisterComponent {
-  name = '';
-  email = '';
-  password = '';
+  user = { name: '', email: '', password: '' };
   errorMessage = '';
-  successMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   register() {
-    this.authService.register({ name: this.name, email: this.email, password: this.password }).subscribe({
+    this.authService.register(this.user).subscribe({
       next: () => {
-        this.successMessage = 'Registro exitoso. Inicia sesión.';
         this.router.navigate(['/authentication/side-login']);
       },
-      error: () => this.errorMessage = 'Error al registrar usuario.'
+      error: (err) => {
+        this.errorMessage = 'Error al registrarse. Intenta de nuevo.';
+        console.error(err);
+      }
     });
   }
 }

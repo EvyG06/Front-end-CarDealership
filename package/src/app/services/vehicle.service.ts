@@ -1,51 +1,28 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Vehicle } from '../models/vehicles.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VehicleService {
-  private baseUrl = 'http://localhost:3000/vehicles';
+  private apiUrl = 'http://localhost:3000/api/vehicles';
 
   constructor(private http: HttpClient) {}
 
-  getVehicles(): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(this.baseUrl).pipe(
-      catchError(this.handleError)
-    );
+  getVehicles(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
 
-  createVehicle(vehicle: Vehicle): Observable<Vehicle> {
-    return this.http.post<Vehicle>(this.baseUrl, vehicle).pipe(
-      catchError(this.handleError)
-    );
+  getVehicleById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
-  updateVehicle(id: number, vehicle: Vehicle): Observable<Vehicle> {
-    return this.http.put<Vehicle>(`${this.baseUrl}/${id}`, vehicle).pipe(
-      catchError(this.handleError)
-    );
+  createVehicle(vehicle: any): Observable<any> {
+    return this.http.post(this.apiUrl, vehicle);
   }
 
-  deleteVehicle(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'Ocurrió un error desconocido';
-    if (error.error instanceof ErrorEvent) {
-      // Error del lado del cliente
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      // Error del lado del servidor
-      errorMessage = `Código de error: ${error.status}, mensaje: ${error.message}`;
-    }
-    console.error(errorMessage);
-    return throwError(() => new Error(errorMessage));
+  deleteVehicle(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
