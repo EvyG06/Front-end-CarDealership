@@ -1,0 +1,61 @@
+:host {
+  display: block;
+  height: 100vh; 
+  background: url('/assets/images/backgrounds/stradale-background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+
+.register-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9); 
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(64, 6, 6, 0.756);
+  position: relative;
+  z-index: 1;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.success {
+  color: green;
+  margin-top: 10px;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}
+
+.text-primary {
+  color: #d21919;
+}
+
+.f-w-500 {
+  font-weight: 500;
+}
+
+.f-s-14 {
+  font-size: 14px;
+}
